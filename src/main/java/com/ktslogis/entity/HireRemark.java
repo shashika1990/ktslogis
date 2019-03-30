@@ -10,10 +10,10 @@ public class HireRemark {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "hireId")
+    @JoinColumn(name = "hireId", nullable = false)
     private Hire hire;
 
-
+    @Column(nullable = false)
     private String remark;
 
     public HireRemark() {

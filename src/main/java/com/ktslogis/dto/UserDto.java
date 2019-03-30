@@ -1,14 +1,12 @@
 package com.ktslogis.dto;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 public class UserDto {
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     private int id;
+
+    private String firstName;
+
+    private String lastName;
 
     private String username;
 
@@ -23,8 +21,10 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(int id, String username, String password, boolean enabled, boolean accountNonExpired, boolean accountNonLocked) {
+    public UserDto(int id, String firstName, String lastName, String username, String password, boolean enabled, boolean accountNonExpired, boolean accountNonLocked) {
         this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
@@ -53,8 +53,7 @@ public class UserDto {
     }
 
     public void setPassword(String password) {
-//        this.password = password;
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
     }
 
     public boolean isEnabled() {
@@ -79,5 +78,35 @@ public class UserDto {
 
     public void setAccountNonLocked(boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                '}';
     }
 }

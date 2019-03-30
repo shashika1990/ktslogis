@@ -12,10 +12,11 @@ public class Hire {
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "containerId")
+    @JoinColumn(name = "containerId", nullable = false)
     private Container container;
 
     @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date date;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -27,11 +28,15 @@ public class Hire {
     private Person mate;
 
     @ManyToOne
-    @JoinColumn(name = "vehicleId")
+    @JoinColumn(name = "vehicleId", nullable = false)
     private Vehicle vehicle;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hire")
     private List<HireRemark> remark;
+
+    @OneToOne
+    @JoinColumn
+    private Hire mainHire;
 
     public Hire() {
     }

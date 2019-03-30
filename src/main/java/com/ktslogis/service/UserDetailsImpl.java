@@ -1,9 +1,11 @@
 package com.ktslogis.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.ktslogis.entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserDetailsImpl implements UserDetails {
@@ -17,6 +19,10 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		Collection<GrantedAuthority> authorities = new ArrayList<>();
+
+//		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority();
+
 		return null;
 	}
 
@@ -42,7 +48,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override

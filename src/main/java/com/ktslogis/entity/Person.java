@@ -11,15 +11,13 @@ public class Person {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "jobRoleId")
+    @JoinColumn(name = "jobRoleId", nullable = false)
     private JobRole jobRole;
 
-
+    @Column(nullable = false)
     private int empStatus;
 
-
-    public Person() {
-    }
+    public Person() {}
 
     public Person(String name, JobRole jobRole, int empStatus) {
         this.name = name;

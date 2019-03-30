@@ -1,9 +1,6 @@
 package com.ktslogis.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Vehicle {
@@ -12,6 +9,7 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
+    @Column(nullable = false)
     private String vehicleNo;
 
     //1 means active, 0 means inactive

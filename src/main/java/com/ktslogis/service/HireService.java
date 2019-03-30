@@ -2,8 +2,8 @@ package com.ktslogis.service;
 
 import com.ktslogis.dto.*;
 import com.ktslogis.entity.*;
+import com.ktslogis.repository.ContainerRepository;
 import com.ktslogis.repository.HireRepository;
-import com.ktslogis.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +20,29 @@ public class HireService {
     HireRepository hireRepository;
 
     @Autowired
-    PersonRepository personRepository;
+    ContainerRepository containerRepository;
 
     @Transactional(readOnly = false)
     public int save(HireDto dto) throws Exception {
 
-        Container container = new Container();
-        container.setId(dto.getContainer().getId());
+        //check if the container no is already available in the database. If available the same container no is used.
+        // Else, the container no is saved before saving the hire record. If the container no cannot be saved an exception is
+        //thrown and the transaction is aborted
+        Container container = containerRepository.findByContainerNo(dto.getContainer().getContainerNo());
+        if(null == container){
+            container = new Container();
+            container.setContainerNo(dto.getContainer().getContainerNo());
+            //setting container size
+            ContainerSize containerSize = new ContainerSize();
+            containerSize.setId(dto.getContainer().getContainerSize().getId());
+
+            Container c = containerRepository.save(container);
+
+            if(null == c) {
+                throw new Exception("Hire record could not be saved.");
+            }
+
+        }
 
         Person driver = new Person();
         driver.setId(dto.getDriver().getId());
@@ -67,8 +83,26 @@ public class HireService {
         Optional<Hire> optional = hireRepository.findById(dto.getId());
         Hire hire = optional.get();
 
-        Container container = hire.getContainer();
-        container.setId(dto.getContainer().getId());
+        /**
+         *  check if the container no is already available in the database. If available the same container no is used.
+         *  Else, the container no is saved before saving the hire record. If the container no cannot be saved an exception is
+         *  thrown and the transaction is aborted
+         */
+        Container container = containerRepository.findByContainerNo(dto.getContainer().getContainerNo());
+        if(null == container){
+            container = new Container();
+            container.setContainerNo(dto.getContainer().getContainerNo());
+            //setting container size
+            ContainerSize containerSize = new ContainerSize();
+            containerSize.setId(dto.getContainer().getContainerSize().getId());
+
+            Container c = containerRepository.save(container);
+
+            if(null == c) {
+                throw new Exception("Hire record could not be saved.");
+            }
+
+        }
 
         Person driver = hire.getDriver();
         driver.setId(dto.getDriver().getId());

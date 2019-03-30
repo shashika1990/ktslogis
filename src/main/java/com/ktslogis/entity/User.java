@@ -12,6 +12,12 @@ public class User {
     private int id;
 
     @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)
@@ -29,7 +35,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, boolean accountNonExpired, boolean accountNonLocked) {
+    public User(String firstName, String lastName, String username, String password, boolean enabled, boolean accountNonExpired, boolean accountNonLocked) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
@@ -86,10 +94,28 @@ public class User {
         this.accountNonLocked = accountNonLocked;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +

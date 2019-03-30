@@ -3,16 +3,18 @@ package com.ktslogis.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"containerNo"}))
 public class Container {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
+    @Column(nullable = false)
     private String containerNo;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "containerSizeId")
+    @JoinColumn(name = "containerSizeId", nullable = false)
     private ContainerSize containerSize;
 
     public ContainerSize getContainerSize() {

@@ -34,7 +34,7 @@ public class ContainerDto {
 
     public void setContainerNo(String containerNo) {
 
-        this.containerNo = containerNo.toUpperCase();
+        this.containerNo = containerNo;
     }
 
     public ContainerSizeDto getContainerSize() {

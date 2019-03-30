@@ -18,6 +18,7 @@ public class HireController {
 
     @PostMapping
     public String save(@RequestBody HireDto dto) {
+        System.out.println(dto);
         try {
             if(0 <= service.save(dto)) {
                 return "Successfully saved";
